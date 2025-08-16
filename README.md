@@ -1,7 +1,7 @@
 # Saiyanlabs - Starter (FastAPI)
 
 Proyecto inicial para la landing de Saiyanlabs (FastAPI backend + plantilla).
-Usa esto como base local, luego lo subes a GitHub y trabajas desde VS Code.
+Usa esto como base local
 
 ## Estructura
 ```
