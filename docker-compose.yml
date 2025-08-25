@@ -1,16 +1,14 @@
-version: "3.8"
+version: '3.8'
+
 services:
   web:
     build: .
     ports:
       - "8000:8000"
     environment:
-      - ADMIN_EMAIL=${ADMIN_EMAIL}
-      - EMAIL_HOST=${EMAIL_HOST}
-      - EMAIL_PORT=${EMAIL_PORT}
-      - EMAIL_USER=${EMAIL_USER}
-      - EMAIL_PASS=${EMAIL_PASS}
-      - AI_API_URL=${AI_API_URL}
-      - AI_API_KEY=${AI_API_KEY}
+      - DEBUG=True
+    env_file:
+      - .env
     volumes:
       - .:/app
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload

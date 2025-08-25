@@ -1,108 +1,1703 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Saiyanlabs - Starter</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <style>
-    body { font-family: Inter, system-ui, Arial, sans-serif; background:#f8fbff; color:#0b2233; }
-    .hero { padding: 3rem 1rem; text-align:center; }
-    .service-card { border-radius:12px; padding:1.25rem; background:white; box-shadow: 0 6px 18px rgba(10,30,60,0.03); }
-    .floating-contact { position: fixed; right: 18px; bottom: 20px; z-index: 1050; border-radius: 50px; }
-    #chatBox { height: 220px; overflow:auto; border:1px solid #e6eef7; padding:12px; background:white; border-radius:8px; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Changed title from SaiyanLab to SaiyanLabs -->
+    <title>SaiyanLabs - Laboratorio de Innovación</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1e88e5;
+            --primary-dark: #1565c0;
+            --secondary: #e3f2fd;
+            --text-dark: #333333;
+            --text-muted: #666666;
+            --white: #ffffff;
+            --light-bg: #f8fafc;
+            --border: #e0e7ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--white);
+            scroll-behavior: smooth;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            text-decoration: none;
+        }
+
+        .logo img {
+            width: 32px;
+            height: 32px;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary);
+        }
+
+        .cta-button {
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(135deg, #f8fafc 0%, #e3f2fd 100%);
+            padding: 8rem 2rem 4rem;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 2rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .hero-description {
+            font-size: 1.125rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(30, 136, 229, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            padding: 1rem 2rem;
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .hero-badges {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .tech-badge {
+            background: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 6rem 0;
+            background: var(--white);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-badge {
+            display: inline-block;
+            background: var(--secondary);
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary);
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--secondary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .service-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .service-description {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .service-benefits {
+            margin-bottom: 1.5rem;
+        }
+
+        .service-benefits h4 {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.75rem;
+        }
+
+        .service-features {
+            list-style: none;
+        }
+
+        .service-features li {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        .service-features .check {
+            color: var(--primary);
+            font-size: 1rem;
+        }
+
+        .service-cta {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: gap 0.3s ease;
+        }
+
+        .service-cta:hover {
+            gap: 0.75rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 4rem 0;
+            background: var(--secondary);
+            text-align: center;
+        }
+
+        .cta-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .cta-description {
+            font-size: 1.125rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        /* Team Section */
+        .team {
+            padding: 6rem 0;
+            background: var(--light-bg);
+        }
+
+        .team-carousel {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .team-member {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 3rem;
+            display: none;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .team-member.active {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .team-photo {
+            width: 200px;
+            height: 200px;
+            border-radius: 16px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .team-info {
+            flex: 1;
+        }
+
+        .team-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .team-role {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .team-description {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .team-specialties {
+            margin-bottom: 1.5rem;
+        }
+
+        .team-specialties h4 {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.75rem;
+        }
+
+        .specialties-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .specialty-tag {
+            background: var(--primary);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .team-experience {
+            margin-bottom: 1.5rem;
+        }
+
+        .team-experience h4 {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.75rem;
+        }
+
+        .experience-list {
+            list-style: none;
+        }
+
+        .experience-list li {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            margin-bottom: 0.25rem;
+            position: relative;
+            padding-left: 1rem;
+        }
+
+        .experience-list li::before {
+            content: "•";
+            color: var(--primary);
+            position: absolute;
+            left: 0;
+        }
+
+        .team-contact {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .contact-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+        }
+
+        .contact-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .carousel-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--border);
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .indicator.active {
+            background: var(--primary);
+        }
+
+        /* Chatbot Section */
+        .chatbot-demo {
+            padding: 6rem 0;
+            background: var(--white);
+        }
+
+        .chatbot-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .chatbot-header {
+            background: var(--primary);
+            color: white;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chatbot-title {
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .chatbot-status {
+            font-size: 0.875rem;
+            opacity: 0.9;
+        }
+
+        .chatbot-messages {
+            height: 300px;
+            padding: 1.5rem;
+            overflow-y: auto;
+            background: var(--light-bg);
+        }
+
+        .chat-message {
+            background: var(--white);
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .chat-message .bot-icon {
+            color: var(--primary);
+            margin-right: 0.5rem;
+        }
+
+        .chatbot-input {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 1rem;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .chat-send {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .chat-send:hover {
+            background: var(--primary-dark);
+        }
+
+        .chatbot-disclaimer {
+            text-align: center;
+            padding: 1rem;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            background: var(--secondary);
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 6rem 0;
+            background: var(--light-bg);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .contact-form {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .form-subtitle {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .submit-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .contact-info {
+            padding: 2rem 0;
+        }
+
+        .contact-info h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--text-dark);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--secondary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            flex-shrink: 0;
+        }
+
+        .contact-details h4 {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: var(--text-dark);
+        }
+
+        .contact-details p {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        .why-choose {
+            margin-top: 3rem;
+        }
+
+        .why-choose h4 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .benefits-list {
+            list-style: none;
+        }
+
+        .benefits-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .benefits-list .benefit-icon {
+            color: var(--primary);
+            margin-top: 0.25rem;
+            flex-shrink: 0;
+        }
+
+        .benefit-content h5 {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: var(--text-dark);
+        }
+
+        .benefit-content p {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        /* Chat Widget */
+        .chat-widget {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 1000;
+        }
+
+        .chat-toggle {
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(30, 136, 229, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .chat-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(30, 136, 229, 0.4);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .nav-container {
+                padding: 0 1.5rem;
+            }
+            
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+            
+            .hero-content {
+                padding: 0 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+            
+            .nav-container {
+                padding: 0 1rem;
+            }
+            
+            .hero {
+                padding: 6rem 1rem 4rem;
+                min-height: 90vh;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+            
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                max-width: 280px;
+                justify-content: center;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .service-card {
+                padding: 1.5rem;
+            }
+            
+            .team-member.active {
+                flex-direction: column;
+                text-align: center;
+                padding: 2rem;
+            }
+            
+            .team-photo {
+                width: 150px;
+                height: 150px;
+                margin-bottom: 1.5rem;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .contact-form {
+                padding: 2rem;
+            }
+            
+            .hero-badges, .specialties-tags {
+                justify-content: center;
+            }
+            
+            .tech-badge {
+                font-size: 0.8rem;
+                padding: 0.4rem 0.8rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .chatbot-container {
+                margin: 0 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                padding: 5rem 0.5rem 3rem;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .hero-description {
+                font-size: 1rem;
+            }
+            
+            .service-card {
+                padding: 1.25rem;
+            }
+            
+            .service-title {
+                font-size: 1.1rem;
+            }
+            
+            .team-member.active {
+                padding: 1.5rem;
+            }
+            
+            .contact-form {
+                padding: 1.5rem;
+            }
+            
+            .chat-widget {
+                bottom: 1rem;
+                right: 1rem;
+            }
+            
+            .chat-toggle {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <nav class="navbar navbar-light bg-white border-bottom">
-    <div class="container">
-      <a class="navbar-brand fw-bold" href="#">Saiyanlabs</a>
-      <a class="btn btn-primary" href="#contact">Contactar</a>
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <img src="/static/logos/saiyanlab-transparent.png" alt="SaiyanLabs">
+                <!-- Changed from SaiyanLab to SaiyanLabs -->
+                SaiyanLabs
+            </a>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#services">Servicios</a></li>
+                    <li><a href="#team">Equipo</a></li>
+                    <li><a href="#contact">Contacto</a></li>
+                </ul>
+            </nav>
+            <a href="#contact" class="cta-button">Consulta Gratuita</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i class="fas fa-flask"></i>
+                Soluciones Tecnológicas 2025
+            </div>
+            
+            <img src="/static/logos/saiyanlab-transparent.png" alt="SaiyanLabs" class="hero-logo">
+            
+            <!-- Changed from SaiyanLab to SaiyanLabs -->
+            <h1 class="hero-title">SaiyanLabs</h1>
+            <p class="hero-subtitle">Laboratorio de Innovación</p>
+            
+            <h2 style="font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; margin-bottom: 1rem; color: var(--text-dark);">
+                Transformamos Ideas<br>
+                en <span style="color: var(--primary);">Realidad Digital</span>
+            </h2>
+            
+            <p class="hero-description">
+                <!-- Changed from SaiyanLab to SaiyanLabs -->
+                Especialistas en desarrollo Python, arquitecturas AWS y automatización con IA. 
+                Creamos soluciones robustas que impulsan el crecimiento empresarial.
+            </p>
+            
+            <div class="hero-buttons">
+                <a href="#contact" class="btn-primary">
+                    <i class="fas fa-rocket"></i>
+                    Consulta Gratuita
+                </a>
+                <a href="#services" class="btn-secondary">Ver Proyectos</a>
+            </div>
+            
+            <div class="hero-badges">
+                <div class="tech-badge">
+                    <i class="fas fa-code"></i>
+                    Python & FastAPI
+                </div>
+                <div class="tech-badge">
+                    <i class="fas fa-cloud"></i>
+                    AWS Solutions
+                </div>
+                <div class="tech-badge">
+                    <i class="fas fa-robot"></i>
+                    IA Empresarial
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">Nuestros Servicios</div>
+                <h2 class="section-title">Soluciones Empresariales</h2>
+                <p class="section-subtitle">
+                    Transformamos ideas en soluciones tecnológicas que impulsan el crecimiento y la innovación 
+                    de tu empresa
+                </p>
+            </div>
+            
+            <div class="services-grid">
+                <!-- Service 1 -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 class="service-title">Desarrollo de Software Personalizado</h3>
+                    <p class="service-description">
+                        Creamos aplicaciones web y sistemas empresariales que se adaptan perfectamente 
+                        a las necesidades específicas de tu negocio.
+                    </p>
+                    <div class="service-benefits">
+                        <h4>Beneficios para tu empresa:</h4>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check check"></i>Sistemas de gestión empresarial</li>
+                            <li><i class="fas fa-check check"></i>Plataformas de comercio electrónico</li>
+                            <li><i class="fas fa-check check"></i>Aplicaciones de productividad</li>
+                            <li><i class="fas fa-check check"></i>Integración con sistemas existentes</li>
+                        </ul>
+                    </div>
+                    <a href="#contact" class="service-cta">
+                        Solicitar información <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <h3 class="service-title">Migración y Optimización en la Nube</h3>
+                    <p class="service-description">
+                        Transformamos tu infraestructura tecnológica para que sea más eficiente, segura y escalable 
+                        en la nube.
+                    </p>
+                    <div class="service-benefits">
+                        <h4>Beneficios para tu empresa:</h4>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check check"></i>Reducción de costos operativos</li>
+                            <li><i class="fas fa-check check"></i>Mayor disponibilidad y rendimiento</li>
+                            <li><i class="fas fa-check check"></i>Escalabilidad automática</li>
+                            <li><i class="fas fa-check check"></i>Respaldo y recuperación mejorados</li>
+                        </ul>
+                    </div>
+                    <a href="#contact" class="service-cta">
+                        Solicitar información <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3 class="service-title">Automatización Inteligente con IA</h3>
+                    <p class="service-description">
+                        Implementamos soluciones de inteligencia artificial que automatizan procesos y mejoran 
+                        la toma de decisiones empresariales.
+                    </p>
+                    <div class="service-benefits">
+                        <h4>Beneficios para tu empresa:</h4>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check check"></i>Chatbots de atención al cliente</li>
+                            <li><i class="fas fa-check check"></i>Análisis predictivo de datos</li>
+                            <li><i class="fas fa-check check"></i>Automatización de tareas repetitivas</li>
+                            <li><i class="fas fa-check check"></i>Sistemas de recomendación</li>
+                        </ul>
+                    </div>
+                    <a href="#contact" class="service-cta">
+                        Solicitar información <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- Service 4 -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3 class="service-title">Gestión y Análisis de Datos</h3>
+                    <p class="service-description">
+                        Convertimos tus datos en información valiosa para la toma de decisiones estratégicas de tu empresa.
+                    </p>
+                    <div class="service-benefits">
+                        <h4>Beneficios para tu empresa:</h4>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check check"></i>Dashboards ejecutivos interactivos</li>
+                            <li><i class="fas fa-check check"></i>Reportes automatizados</li>
+                            <li><i class="fas fa-check check"></i>Análisis de tendencias de mercado</li>
+                            <li><i class="fas fa-check check"></i>Optimización de procesos de negocio</li>
+                        </ul>
+                    </div>
+                    <a href="#contact" class="service-cta">
+                        Solicitar información <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- Service 5 -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="service-title">Seguridad y Cumplimiento</h3>
+                    <p class="service-description">
+                        Protegemos tu información y sistemas con las mejores prácticas de seguridad y 
+                        cumplimiento normativo.
+                    </p>
+                    <div class="service-benefits">
+                        <h4>Beneficios para tu empresa:</h4>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check check"></i>Auditorías de seguridad</li>
+                            <li><i class="fas fa-check check"></i>Implementación de protocolos</li>
+                            <li><i class="fas fa-check check"></i>Cumplimiento normativo</li>
+                            <li><i class="fas fa-check check"></i>Monitoreo continuo de amenazas</li>
+                        </ul>
+                    </div>
+                    <a href="#contact" class="service-cta">
+                        Solicitar información <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- Service 6 -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="service-title">Consultoría y Capacitación</h3>
+                    <p class="service-description">
+                        Asesoramos a tu equipo en la adopción de nuevas tecnologías y mejores prácticas de desarrollo.
+                    </p>
+                    <div class="service-benefits">
+                        <h4>Beneficios para tu empresa:</h4>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check check"></i>Evaluación de arquitectura actual</li>
+                            <li><i class="fas fa-check check"></i>Planes de transformación digital</li>
+                            <li><i class="fas fa-check check"></i>Capacitación técnica especializada</li>
+                            <li><i class="fas fa-check check"></i>Acompañamiento en implementación</li>
+                        </ul>
+                    </div>
+                    <a href="#contact" class="service-cta">
+                        Solicitar información <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- Service 7 -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 class="service-title">Aplicaciones Móviles Empresariales</h3>
+                    <p class="service-description">
+                        Desarrollamos aplicaciones móviles que conectan a tu empresa con clientes y 
+                        empleados de manera eficiente.
+                    </p>
+                    <div class="service-benefits">
+                        <h4>Beneficios para tu empresa:</h4>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check check"></i>Apps nativas y multiplataforma</li>
+                            <li><i class="fas fa-check check"></i>Integración con sistemas empresariales</li>
+                            <li><i class="fas fa-check check"></i>Experiencia de usuario optimizada</li>
+                            <li><i class="fas fa-check check"></i>Notificaciones y comunicación en tiempo real</li>
+                        </ul>
+                    </div>
+                    <a href="#contact" class="service-cta">
+                        Solicitar información <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- Service 8 -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>
+                    <h3 class="service-title">Optimización de Rendimiento</h3>
+                    <p class="service-description">
+                        Mejoramos la velocidad y eficiencia de tus sistemas existentes para maximizar la 
+                        productividad empresarial.
+                    </p>
+                    <div class="service-benefits">
+                        <h4>Beneficios para tu empresa:</h4>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check check"></i>Análisis de rendimiento de sistemas</li>
+                            <li><i class="fas fa-check check"></i>Optimización de bases de datos</li>
+                            <li><i class="fas fa-check check"></i>Mejora de tiempos de respuesta</li>
+                            <li><i class="fas fa-check check"></i>Reducción de recursos necesarios</li>
+                        </ul>
+                    </div>
+                    <a href="#contact" class="service-cta">
+                        Solicitar información <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="cta-title">¿Listo para transformar tu empresa?</h2>
+            <p class="cta-description">
+                Contáctanos para una consulta gratuita y descubre cómo podemos ayudarte a alcanzar 
+                tus objetivos empresariales
+            </p>
+            <a href="#contact" class="btn-primary">
+                <i class="fas fa-rocket"></i>
+                Iniciar Proyecto
+            </a>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team" id="team">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">Nuestro Equipo</div>
+                <h2 class="section-title">Conoce a los <span style="color: var(--primary);">Expertos</span></h2>
+            </div>
+            
+            <div class="team-carousel">
+                <!-- Team Member 1 -->
+                <div class="team-member active">
+                    <img src="/static/team/juan-pablo.jpg" alt="Juan Pablo Montaña González" class="team-photo">
+                    <div class="team-info">
+                        <h3 class="team-name">Juan Pablo Montaña González</h3>
+                        <p class="team-role">Co-Worker & Software Developer</p>
+                        <p class="team-description">
+                            Estudiante de 9° semestre de Ingeniería de Sistemas con experiencia en desarrollo de 
+                            software y soluciones empresariales.
+                        </p>
+                        
+                        <div class="team-specialties">
+                            <h4>Especialidades</h4>
+                            <div class="specialties-tags">
+                                <span class="specialty-tag">Full-Stack Development</span>
+                                <span class="specialty-tag">Database Solutions</span>
+                                <span class="specialty-tag">Business Intelligence</span>
+                                <span class="specialty-tag">Cloud Computing</span>
+                            </div>
+                        </div>
+                        
+                        <div class="team-experience">
+                            <h4>Experiencia</h4>
+                            <ul class="experience-list">
+                                <li>Desarrollador en Green Dragon SAS</li>
+                                <li>Especialista en automatización empresarial</li>
+                                <li>Experto en integración de sistemas</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="team-contact">
+                            <a href="mailto:Juan.montana@utp.edu.co" class="contact-btn">
+                                <i class="fas fa-envelope"></i>
+                                Email
+                            </a>
+                            <a href="https://www.linkedin.com/in/juan-pablo-montaña-gonzalez-4316372aa" class="contact-btn" target="_blank">
+                                <i class="fab fa-linkedin"></i>
+                                LinkedIn
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Member 2 -->
+                <div class="team-member">
+                    <img src="/static/team/founder-portrait.png" alt="Fundador" class="team-photo">
+                    <div class="team-info">
+                        <h3 class="team-name">Fundador & CEO</h3>
+                        <p class="team-role">Founder & Technical Lead</p>
+                        <p class="team-description">
+                            Visionario y líder técnico especializado en arquitectura de software y soluciones 
+                            empresariales innovadoras.
+                        </p>
+                        
+                        <div class="team-specialties">
+                            <h4>Especialidades</h4>
+                            <div class="specialties-tags">
+                                <span class="specialty-tag">Software Architecture</span>
+                                <span class="specialty-tag">AWS Solutions</span>
+                                <span class="specialty-tag">AI Implementation</span>
+                                <span class="specialty-tag">Team Leadership</span>
+                            </div>
+                        </div>
+                        
+                        <div class="team-experience">
+                            <h4>Experiencia</h4>
+                            <ul class="experience-list">
+                                <li>Fundador de SaiyanLab</li>
+                                <li>Arquitecto de soluciones empresariales</li>
+                                <li>Consultor en transformación digital</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="team-contact">
+                            <a href="mailto:founder@saiyanlab.com" class="contact-btn">
+                                <i class="fas fa-envelope"></i>
+                                Email
+                            </a>
+                            <a href="#" class="contact-btn">
+                                <i class="fab fa-linkedin"></i>
+                                LinkedIn
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="carousel-indicators">
+                    <div class="indicator active" onclick="showTeamMember(0)"></div>
+                    <div class="indicator" onclick="showTeamMember(1)"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chatbot Demo Section -->
+    <section class="chatbot-demo">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Prueba Nuestro <span style="color: var(--primary);">Chatbot IA</span></h2>
+                <p class="section-subtitle">
+                    Experimenta la calidad de nuestros chatbots empresariales. Pregunta sobre 
+                    servicios, precios o cualquier duda
+                </p>
+            </div>
+            
+            <div class="chatbot-container">
+                <!-- Enhanced chatbot header text -->
+                <div class="chatbot-header">
+                    <div>
+                        <h6 class="chatbot-title">SaiyanLabs Assistant</h6>
+                        <div class="chatbot-status">Siempre disponible para ayudarte</div>
+                    </div>
+                    <button onclick="toggleChatDemo()" style="background: none; border: none; color: white; cursor: pointer;">
+                        <i class="fas fa-expand-alt"></i>
+                    </button>
+                </div>
+                
+                <div class="chatbot-messages" id="demoMessages">
+                    <div class="chat-message">
+                        <i class="fas fa-robot bot-icon"></i>
+                        <!-- Changed from SaiyanLab to SaiyanLabs -->
+                        ¡Hola! Soy el asistente de SaiyanLabs. Puedo ayudarte con información 
+                        sobre nuestros servicios, precios y cómo podemos ayudar a tu 
+                        empresa. ¿En qué puedo asistirte?
+                    </div>
+                </div>
+                
+                <div class="chatbot-input">
+                    <input type="text" class="chat-input" id="demoInput" placeholder="Escribe tu pregunta aquí...">
+                    <button class="chat-send" onclick="sendDemoMessage()">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+                
+                <div class="chatbot-disclaimer">
+                    Este es un demo. Para implementar un chatbot real en tu empresa, contáctanos.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Iniciemos tu <span style="color: var(--primary);">Proyecto</span></h2>
+                <p class="section-subtitle">
+                    <!-- Changed from SaiyanLab to SaiyanLabs -->
+                    Contáctanos para una consulta gratuita y descubre cómo SaiyanLabs puede 
+                    transformar tu negocio con tecnología
+                </p>
+            </div>
+            
+            <div class="contact-grid">
+                <div class="contact-form">
+                    <h3 class="form-title">Consulta Gratuita</h3>
+                    <p class="form-subtitle">Cuéntanos sobre tu proyecto y te contactaremos en menos de 24 horas.</p>
+                    
+                    <form id="contactForm" action="/api/contact" method="POST">
+                        <div class="form-group">
+                            <input type="text" name="name" class="form-input" placeholder="Tu nombre completo" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" name="email" class="form-input" placeholder="tu@empresa.com" required>
+                        </div>
+                        <div class="form-group">
+                            <select name="service" class="form-select" required>
+                                <option value="">Servicio de Interés</option>
+                                <option value="desarrollo">Desarrollo Python</option>
+                                <option value="cloud">Soluciones AWS</option>
+                                <option value="ia">Automatización IA</option>
+                                <option value="datos">Análisis de Datos</option>
+                                <option value="seguridad">Seguridad</option>
+                                <option value="consultoria">Consultoría</option>
+                                <option value="movil">Apps Móviles</option>
+                                <option value="optimizacion">Optimización</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <textarea name="message" class="form-textarea" placeholder="Cuéntanos qué necesitas: tipo de aplicación, funcionalidades, presupuesto estimado..." required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-paper-plane"></i>
+                            Solicitar Consulta Gratuita
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="contact-info">
+                    <h3>Información de Contacto</h3>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>saiyanlab@correo.com</h4>
+                            <p>Email principal de la empresa</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>WhatsApp: +57 123 123 123</h4>
+                            <p>Consultas rápidas y soporte</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Pereira, Risaralda</h4>
+                            <p>Colombia - Servicio Nacional</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Lun - Vie: 8:00 AM - 6:00 PM</h4>
+                            <p>Horario de atención</p>
+                        </div>
+                    </div>
+                    
+                    <div class="why-choose">
+                        <!-- Changed from SaiyanLab to SaiyanLabs -->
+                        <h4>¿Por qué elegir SaiyanLabs?</h4>
+                        <ul class="benefits-list">
+                            <li>
+                                <i class="fas fa-star benefit-icon"></i>
+                                <div class="benefit-content">
+                                    <h5>Especialización técnica</h5>
+                                    <p>Expertos en Python, AWS y tecnologías IA</p>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-users benefit-icon"></i>
+                                <div class="benefit-content">
+                                    <h5>Equipo experimentado</h5>
+                                    <p>Desarrolladores con experiencia empresarial comprobada</p>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-rocket benefit-icon"></i>
+                                <div class="benefit-content">
+                                    <h5>Metodología ágil</h5>
+                                    <p>Entregas rápidas con documentación técnica completa</p>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-headset benefit-icon"></i>
+                                <div class="benefit-content">
+                                    <h5>Soporte integral</h5>
+                                    <p>Desde consultoría hasta implementación y mantenimiento</p>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-lightbulb benefit-icon"></i>
+                                <div class="benefit-content">
+                                    <h5>Innovación constante</h5>
+                                    <p>Siempre actualizados con las últimas tecnologías</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chat Widget -->
+    <div class="chat-widget">
+        <button class="chat-toggle" onclick="toggleChatWidget()">
+            <i class="fas fa-comments"></i>
+        </button>
     </div>
-  </nav>
 
-  <header class="hero">
-    <h1>Soluciones Tecnológicas Innovadoras</h1>
-    <p class="lead text-muted">Transformamos ideas en soluciones digitales robustas. Desarrollo Python, AWS y IA.</p>
-    <a class="btn btn-primary" href="#contact">Solicitar Consulta Gratuita</a>
-  </header>
+    <script>
+        // Team Carousel
+        let currentTeamMember = 0;
+        const teamMembers = document.querySelectorAll('.team-member');
+        const indicators = document.querySelectorAll('.indicator');
+        
+        function showTeamMember(index) {
+            teamMembers[currentTeamMember].classList.remove('active');
+            indicators[currentTeamMember].classList.remove('active');
+            
+            currentTeamMember = index;
+            
+            teamMembers[currentTeamMember].classList.add('active');
+            indicators[currentTeamMember].classList.add('active');
+        }
+        
+        function nextTeamMember() {
+            const nextIndex = (currentTeamMember + 1) % teamMembers.length;
+            showTeamMember(nextIndex);
+        }
+        
+        // Auto-advance carousel every 5 seconds
+        setInterval(nextTeamMember, 5000);
 
-  <main class="container py-4">
-    <section id="services" class="mb-4">
-      <h2 class="mb-3">Nuestros servicios</h2>
-      <div class="row g-3">
-        <div class="col-md-4"><div class="service-card"><h5>Desarrollo Python</h5><p>APIs con FastAPI, apps Django, automatización.</p></div></div>
-        <div class="col-md-4"><div class="service-card"><h5>Soluciones AWS</h5><p>Migración, serverless, RDS y monitoreo.</p></div></div>
-        <div class="col-md-4"><div class="service-card"><h5>IA & Machine Learning</h5><p>Chatbots, análisis y pipelines ML.</p></div></div>
-      </div>
-    </section>
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'start',
+                        inline: 'nearest'
+                    });
+                }
+            });
+        });
 
-    <section id="contact" class="mb-5">
-      <h2>Consulta Gratuita</h2>
-      <p>Cuéntame tu proyecto y te contacto en menos de 24 h.</p>
-      <form id="contactForm">
-        <input name="name" placeholder="Tu nombre completo" required class="form-control mb-2" />
-        <input name="email" placeholder="tu@empresa.com" required class="form-control mb-2" />
-        <select name="service" class="form-select mb-2">
-          <option>Desarrollo Python</option>
-          <option>Soluciones AWS</option>
-          <option>IA & Machine Learning</option>
-        </select>
-        <textarea name="message" placeholder="Describe tu proyecto" required class="form-control mb-2"></textarea>
-        <button class="btn btn-primary" type="submit">Enviar</button>
-      </form>
-    </section>
+        // Contact Form
+        document.getElementById('contactForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const submitBtn = this.querySelector('.submit-btn');
+            const originalText = submitBtn.innerHTML;
+            
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+            submitBtn.disabled = true;
+            
+            const formData = new FormData(this);
+            
+            try {
+                const response = await fetch('/api/contact', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                if (response.ok) {
+                    alert('¡Mensaje enviado correctamente! Te contactaremos en menos de 24 horas.');
+                    this.reset();
+                } else {
+                    alert('Error al enviar el mensaje. Por favor, inténtalo de nuevo.');
+                }
+            } catch (error) {
+                alert('Error de conexión. Por favor, verifica tu conexión e inténtalo de nuevo.');
+            } finally {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
+        });
 
-    <section id="chatDemo">
-      <h3>Chat (demo)</h3>
-      <div id="chatBox"></div>
-      <div class="input-group mt-2">
-        <input id="msgInput" class="form-control" placeholder="Escribe..." />
-        <button id="sendBtn" class="btn btn-outline-primary">Enviar</button>
-      </div>
-    </section>
-  </main>
+        // Demo Chatbot
+        const demoResponses = [
+            "¡Excelente pregunta! Nuestros servicios incluyen desarrollo de software personalizado, soluciones en la nube con AWS, y automatización con IA. ¿Te interesa algún servicio en particular?",
+            "Trabajamos con tecnologías como Python, FastAPI, AWS, y herramientas de IA. Nos especializamos en crear soluciones robustas para empresas. ¿Qué tipo de proyecto tienes en mente?",
+            "Nuestros precios varían según el proyecto. Ofrecemos consultas gratuitas para evaluar tus necesidades y darte un presupuesto personalizado. ¿Te gustaría agendar una consulta?",
+            "Tenemos experiencia en diversos sectores: comercio electrónico, fintech, salud, educación y más. Cada proyecto se adapta a las necesidades específicas del cliente.",
+            "El tiempo de desarrollo depende de la complejidad del proyecto. Proyectos simples pueden tomar 2-4 semanas, mientras que sistemas más complejos pueden requerir 2-6 meses.",
+            "¡Por supuesto! Ofrecemos soporte y mantenimiento continuo para todos nuestros proyectos. Queremos asegurar que tu solución funcione perfectamente a largo plazo."
+        ];
 
-  <a class="btn btn-primary floating-contact" id="openChat">💬</a>
+        function sendDemoMessage() {
+            const input = document.getElementById('demoInput');
+            const message = input.value.trim();
+            
+            if (message) {
+                addDemoMessage(message, 'user');
+                input.value = '';
+                
+                // Simulate bot response
+                setTimeout(() => {
+                    const randomResponse = demoResponses[Math.floor(Math.random() * demoResponses.length)];
+                    addDemoMessage(randomResponse, 'bot');
+                }, 1000);
+            }
+        }
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    // contact form
-    document.getElementById('contactForm').addEventListener('submit', async (e)=>{
-      e.preventDefault();
-      const fd = new FormData(e.target);
-      const res = await fetch('/api/contact', { method: 'POST', body: fd });
-      if(res.ok){ alert('Mensaje enviado — gracias!'); e.target.reset(); } else { alert('Error enviando'); }
-    });
+        function addDemoMessage(text, sender) {
+            const messagesContainer = document.getElementById('demoMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'chat-message';
+            
+            if (sender === 'bot') {
+                messageDiv.innerHTML = `<i class="fas fa-robot bot-icon"></i>${text}`;
+            } else {
+                messageDiv.innerHTML = text;
+                messageDiv.style.background = 'var(--primary)';
+                messageDiv.style.color = 'white';
+                messageDiv.style.marginLeft = 'auto';
+                messageDiv.style.maxWidth = '80%';
+            }
+            
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
 
-    // websocket chat
-    const wsProto = location.protocol === 'https:' ? 'wss' : 'ws';
-    const ws = new WebSocket(`${wsProto}://${location.host}/ws/chat`);
-    const chatBox = document.getElementById('chatBox');
-    function addMsg(sender, text){
-      const el = document.createElement('div');
-      el.innerHTML = `<strong>${sender}:</strong> ${text}`;
-      chatBox.appendChild(el);
-      chatBox.scrollTop = chatBox.scrollHeight;
-    }
-    ws.onopen = ()=> addMsg('system','Conectado (demo)');
-    ws.onmessage = (ev)=> { const d = JSON.parse(ev.data); addMsg(d.sender||'bot', d.text); };
-    ws.onclose = ()=> addMsg('system','Desconectado');
+        // Enter key for demo chat
+        document.getElementById('demoInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendDemoMessage();
+            }
+        });
 
-    document.getElementById('sendBtn').addEventListener('click', ()=>{
-      const input = document.getElementById('msgInput');
-      const t = input.value.trim();
-      if(!t) return;
-      ws.send(JSON.stringify({text: t}));
-      addMsg('you', t);
-      input.value = '';
-    });
+        // Chat widget toggle
+        function toggleChatWidget() {
+            alert('¡Funcionalidad de chat en desarrollo! Por ahora puedes contactarnos a través del formulario o WhatsApp.');
+        }
 
-    document.getElementById('openChat').addEventListener('click', ()=>{
-      const el = document.getElementById('msgInput');
-      el.scrollIntoView({behavior:'smooth', block:'center'});
-      el.focus();
-    });
-  </script>
+        // Demo chat toggle
+        function toggleChatDemo() {
+            const container = document.querySelector('.chatbot-container');
+            if (container.style.position === 'fixed') {
+                container.style.position = 'static';
+                container.style.top = 'auto';
+                container.style.right = 'auto';
+                container.style.zIndex = 'auto';
+                container.style.width = 'auto';
+                container.style.height = 'auto';
+            } else {
+                container.style.position = 'fixed';
+                container.style.top = '50%';
+                container.style.right = '2rem';
+                container.style.transform = 'translateY(-50%)';
+                container.style.zIndex = '1000';
+                container.style.width = '400px';
+                container.style.height = '600px';
+            }
+        }
+
+        // Service card hover effects
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-8px)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
 </body>
 </html>

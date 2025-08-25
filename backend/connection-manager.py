@@ -13,7 +13,6 @@ load_dotenv()
 app = FastAPI()
 templates = Jinja2Templates(directory="app/templates")
 
-app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
 ADMIN_EMAIL = os.getenv("ADMIN_EMAIL")
 EMAIL_HOST = os.getenv("EMAIL_HOST")
